@@ -1,8 +1,5 @@
 /*
   To do:
-  - display location for each move in history
-  - play with css to make look nicer
-
   - ultimate tic tac toe?
 */
 
@@ -31,7 +28,7 @@ class Board extends React.Component {
       key={i}
       value={this.props.squares[i]} 
       onClick={() => this.props.onClick(i)}
-      background={this.props.winner && this.props.winner.includes(i) ? "yellow" : "white"}
+      background={this.props.winner && this.props.winner.includes(i) ? "yellow" : i%2===1 ? "#ddd" : "white"}
     />;
   }
 
@@ -104,6 +101,15 @@ class Game extends React.Component {
     });
   }
 
+  undo() {
+    if ( this.state.stepNumber > 0 ) {
+      this.setState({
+      stepNumber: this.state.stepNumber - 1,
+      xIsNext: !this.state.xIsNext
+    });
+    }
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -148,6 +154,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <button onClick={() => this.undo()}>Undo</button>
           <ol>{moves}</ol>
         </div>
       </div>
