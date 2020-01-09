@@ -1,7 +1,6 @@
 /*
   To do:
   - display location for each move in history
-  - highlight the three squares that caused the win
   - play with css to make look nicer
 
   - ultimate tic tac toe?
@@ -17,8 +16,9 @@ import './index.css';
 function Square(props) {
   return (
     <button 
-    className="square" 
-    onClick={props.onClick}
+      className="square" 
+      onClick={props.onClick}
+      style={{background: props.background}}
     >
       {props.value}
     </button>
@@ -31,6 +31,7 @@ class Board extends React.Component {
       key={i}
       value={this.props.squares[i]} 
       onClick={() => this.props.onClick(i)}
+      background={this.props.winner && this.props.winner.includes(i) ? "yellow" : "white"}
     />;
   }
 
@@ -40,8 +41,10 @@ class Board extends React.Component {
     const rows = Array(3);
     for ( let i=0 ; i<3 ; i++ ) {
       const squares = Array(3);
-      for ( let j=0 ; j<3 ; j++ )
-        squares[j] = this.renderSquare(i*3 + j);
+      for ( let j=0 ; j<3 ; j++ ) {
+        let k = i*3 + j;
+        squares[j] = this.renderSquare(k);
+      }
 
       rows[i] = (
         <div className="board-row" key={i}>
@@ -125,10 +128,10 @@ class Game extends React.Component {
 
     let status;
     if ( winner ) {
-      if ( winner == 'draw' )
+      if ( winner === 'draw' )
         status = 'Draw! No player wins';
       else
-        status = 'Winner: ' + winner;
+        status = 'Winner: ' + current.squares[winner[0]];
     } else {
       status = (this.state.xIsNext ? 'X' : 'O') + 
         "'s turn";
@@ -140,6 +143,7 @@ class Game extends React.Component {
           <Board 
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winner={winner}
           />
         </div>
         <div className="game-info">
@@ -167,13 +171,13 @@ function calculateWinner(squares) {
   for ( let l of lines ) {
     const [a,b,c] = l;
     if ( squares[a] && squares[a] === squares[b] && squares[a] === squares[c] ) 
-      return squares[a];
+      return l;
   }
 
   let draw = 0;
   for ( let s of squares )
     if ( s ) draw++;
-  if ( draw == 9 )
+  if ( draw === 9 )
     return 'draw';
 
   return null;
