@@ -1,6 +1,7 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  background: #eef;
 }
 
 ol, ul {
@@ -14,7 +15,10 @@ ol, ul {
 }
 
 .status {
+  background: white;
+  border: 1px solid black;
   margin-bottom: 10px;
+  width: 373px;
 }
 
 .square {
@@ -42,18 +46,24 @@ ol, ul {
   background: #ddd;
 }
 
+.undo {
+  margin: 10px 0 10px 0;
+}
+
 .game {
   display: flex;
   flex-direction: row;
+  width: 400px;
 }
 
 .game-board {
-  background: #eef;
+  background: #99f;
   border: 1px solid black;
   padding: 34px;
 }
 
 .game-info {
+  background: #ddf;
   margin-left: 20px;
   border: 1px solid black;
   padding: 34px;

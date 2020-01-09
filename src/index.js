@@ -144,6 +144,10 @@ class Game extends React.Component {
     }
 
     return (
+      <div>
+      <header className="status" align="center">
+        <h1>{status}</h1>
+      </header>
       <div className="game">
         <div className="game-board">
           <Board 
@@ -153,10 +157,10 @@ class Game extends React.Component {
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
-          <button onClick={() => this.undo()}>Undo</button>
+          <button className="undo" onClick={() => this.undo()}>Undo</button>
           <ol>{moves}</ol>
         </div>
+      </div>
       </div>
     );
   }
