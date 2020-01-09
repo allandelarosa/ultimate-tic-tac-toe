@@ -2,7 +2,6 @@
   To do:
   - display location for each move in history
   - highlight the three squares that caused the win
-  - if no one wins, display a message for a draw
   - play with css to make look nicer
 
   - ultimate tic tac toe?
@@ -125,11 +124,14 @@ class Game extends React.Component {
     });
 
     let status;
-    if ( winner ) 
-      status = 'Winner: ' + winner;
-    else {
-      status = 'Next player ' +
-        (this.state.xIsNext ? 'X' : 'O');
+    if ( winner ) {
+      if ( winner == 'draw' )
+        status = 'Draw! No player wins';
+      else
+        status = 'Winner: ' + winner;
+    } else {
+      status = (this.state.xIsNext ? 'X' : 'O') + 
+        "'s turn";
     }
 
     return (
@@ -149,6 +151,7 @@ class Game extends React.Component {
   }
 }
 
+// also indicates if there is a draw
 function calculateWinner(squares) {
   const lines = [
     [0,1,2],
@@ -166,6 +169,13 @@ function calculateWinner(squares) {
     if ( squares[a] && squares[a] === squares[b] && squares[a] === squares[c] ) 
       return squares[a];
   }
+
+  let draw = 0;
+  for ( let s of squares )
+    if ( s ) draw++;
+  if ( draw == 9 )
+    return 'draw';
+
   return null;
 }
 
