@@ -5,6 +5,7 @@ export class Board extends React.Component {
   renderSquare(i) {
     return <Square key={i} value={this.props.squares[i]} onClick={() => this.props.onClick(i)} background={this.props.winner && this.props.winner.includes(i) ? "yellow" : i % 2 === 1 ? "#ddd" : "white"} />;
   }
+
   render() {
     const rows = Array(3);
     for (let i = 0; i < 3; i++) {
@@ -17,6 +18,7 @@ export class Board extends React.Component {
         {squares}
       </div>);
     }
+    
     return (<div className="game-board">
       {rows}
     </div>);

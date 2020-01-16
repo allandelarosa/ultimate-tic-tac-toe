@@ -1,5 +1,4 @@
 import React from 'react';
-import { calculateWinner } from './index';
 import { Board } from "./Board";
 
 export class BigBoard extends React.Component {

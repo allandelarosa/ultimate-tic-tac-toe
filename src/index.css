@@ -18,7 +18,8 @@ ol, ul {
   background: white;
   border: 1px solid black;
   margin-bottom: 10px;
-  width: 373px;
+  padding: 10px;
+  align: center;
 }
 
 .square {
@@ -47,7 +48,18 @@ ol, ul {
 }
 
 .undo, .reset {
+  background: #ff0;
+  border: 1px solid #000;
+  font-weight: bold;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  color: white;
+  padding: 10px;
+  text-align: center;
   margin: 10px 0 10px 0;
+}
+
+.undo:focus, .reset:focus {
+  outline: none;
 }
 
 .game {

@@ -58,22 +58,20 @@ export class Game extends React.Component {
         status = 'Draw! No player wins';
       else
         status = 'Winner: ' + current.bigSquares[winner[0]];
-    }
-    else {
+    } else {
       status = (this.state.xIsNext ? 'X' : 'O') +
         "'s turn";
     }
+
     return (<div>
-      <header className="status" align="center">
-        <h1>{status}</h1>
-      </header>
       <div className="game">
         <div className="big-game-board">
           <BigBoard squares={current.squares} onClick={(i) => this.handleClick(i)} winner={winner} />
         </div>
         <div className="game-info">
-            <button className="reset" onClick={() => this.reset()}>Reset</button>
-          <button className="undo" onClick={() => this.undo()}>Undo</button>
+            <h3 className="status">{status}</h3>
+            <button className="reset" onClick={() => this.reset()}>Reset</button><br></br>
+            <button className="undo" onClick={() => this.undo()}>Undo</button>
         </div>
       </div>
     </div>);
