@@ -46,20 +46,20 @@ ol, ul {
   background: #ddd;
 }
 
-.undo {
+.undo, .reset {
   margin: 10px 0 10px 0;
 }
 
 .game {
   display: flex;
   flex-direction: row;
-  width: 400px;
 }
 
 .game-board {
+  float: left;
   background: #99f;
   border: 1px solid black;
-  padding: 34px;
+  padding: 17px;
 }
 
 .game-info {
