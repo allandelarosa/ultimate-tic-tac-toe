@@ -5,8 +5,9 @@ export class BigBoard extends React.Component {
     renderBoard(i) {
         return <Board 
             key={i}
+            squareNumber={i}
             squares={this.props.squares[i]} 
-            onClick={(i) => this.props.handleClick(i)} 
+            onClick={(i,j) => this.props.onClick(i,j)} 
             winner={this.props.winner} />
       }
 

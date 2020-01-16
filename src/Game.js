@@ -15,16 +15,21 @@ export class Game extends React.Component {
     };
   }
 
-  handleClick(i) {
+  handleClick(i,j) { // i is big square, j is little square
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
-    const squares = current.bigSquares.slice();
-    if (calculateWinner(squares) || squares[i])
+    const squares = current.squares.slice();
+    const bigSquares = current.bigSquares.slice();
+
+    // if (calculateWinner(squares) || squares[i])
+    if ( squares[i][j] )
       return;
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    squares[i][j] = this.state.xIsNext ? 'X' : 'O';
+    console.log( i,j,squares );
     this.setState({
       history: history.concat([{
-        bigSquares: squares
+        bigSquares: bigSquares,
+        squares: squares
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext
@@ -66,7 +71,11 @@ export class Game extends React.Component {
     return (<div>
       <div className="game">
         <div className="big-game-board">
-          <BigBoard squares={current.squares} onClick={(i) => this.handleClick(i)} winner={winner} />
+          <BigBoard 
+            bigSquares={current.bigSquares}
+            squares={current.squares} 
+            onClick={(i,j) => this.handleClick(i,j)} 
+            winner={winner} />
         </div>
         <div className="game-info">
             <h3 className="status">{status}</h3>
