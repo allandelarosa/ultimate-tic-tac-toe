@@ -19,17 +19,24 @@ export class Game extends React.Component {
     };
   }
 
-  handleClick(i,j) { // i is big square, j is little square
+  handleClick(i,j) { // j is big square, i is little square
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
-    const squares = current.squares.slice();
+
+    // just using slice on original "squares" will create a ne array, but the subarrays will still be references to the originals; need to copy each subarray individually
+    const squares = Array(9);
+    for ( let i=0 ; i<squares.length ; i++ ) {
+        squares[i] = current.squares[i].slice();
+    }
     const bigSquares = current.bigSquares.slice();
 
     // if (calculateWinner(squares) || squares[i])
     if ( squares[j][i] )
       return;
+
     squares[j][i] = this.state.xIsNext ? 'X' : 'O';
-    console.log( i,j,squares );
+    console.log( this.state.stepNumber );
+
     this.setState({
       history: history.concat([{
         bigSquares: bigSquares,
