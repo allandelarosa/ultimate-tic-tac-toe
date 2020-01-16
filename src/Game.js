@@ -5,10 +5,14 @@ import { BigBoard } from "./BigBoard";
 export class Game extends React.Component {
   constructor(props) {
     super(props);
+    let squares = Array(9);
+    for ( let i=0 ; i<squares.length ; i++ ) {
+        squares[i] = Array(9).fill(null);
+    }
     this.state = {
       history: [{
         bigSquares: Array(9).fill(null),
-        squares: Array(9).fill(Array(9).fill(null))
+        squares: squares
       }],
       stepNumber: 0,
       xIsNext: true
@@ -22,9 +26,9 @@ export class Game extends React.Component {
     const bigSquares = current.bigSquares.slice();
 
     // if (calculateWinner(squares) || squares[i])
-    if ( squares[i][j] )
+    if ( squares[j][i] )
       return;
-    squares[i][j] = this.state.xIsNext ? 'X' : 'O';
+    squares[j][i] = this.state.xIsNext ? 'X' : 'O';
     console.log( i,j,squares );
     this.setState({
       history: history.concat([{
