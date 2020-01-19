@@ -30,12 +30,19 @@ export class Game extends React.Component {
     }
     const bigSquares = current.bigSquares.slice();
 
-    // if (calculateWinner(squares) || squares[i])
-    if ( squares[j][i] )
-      return;
+    if (calculateWinner(bigSquares) || 
+        calculateWinner(squares[j]) || 
+        squares[j][i])
+        return;
 
     squares[j][i] = this.state.xIsNext ? 'X' : 'O';
-    console.log( this.state.stepNumber );
+
+    let winner = calculateWinner( squares[j] );
+    if ( winner === 'draw' )
+        bigSquares[j] = winner;
+    else if ( winner )
+        bigSquares[j] = squares[j][winner[0]];
+    console.log(bigSquares)
 
     this.setState({
       history: history.concat([{
