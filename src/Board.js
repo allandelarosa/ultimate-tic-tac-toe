@@ -27,7 +27,12 @@ export class Board extends React.Component {
       </div>);
     }
 
-    return (<div className="game-board">
+    let background = this.props.winner && 
+    this.props.winner.includes(this.props.squareNumber) ?
+    "yellow" : "#99f";
+
+    return (<div className="game-board"
+        style={{background: background}}>
       {rows}
     </div>);
   }

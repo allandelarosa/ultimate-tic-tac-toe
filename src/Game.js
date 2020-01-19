@@ -42,7 +42,6 @@ export class Game extends React.Component {
         bigSquares[j] = winner;
     else if ( winner )
         bigSquares[j] = squares[j][winner[0]];
-    console.log(bigSquares)
 
     this.setState({
       history: history.concat([{

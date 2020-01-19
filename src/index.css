@@ -69,7 +69,6 @@ ol, ul {
 
 .game-board {
   float: left;
-  background: #99f;
   border: 1px solid black;
   padding: 17px;
 }
