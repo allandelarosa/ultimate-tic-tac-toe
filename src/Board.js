@@ -4,13 +4,14 @@ import { Square, calculateWinner } from './index';
 export class Board extends React.Component {
   renderSquare(i) {
     let winner = calculateWinner(this.props.squares);
+    let background = winner && 
+        winner.includes(i) ? "yellow" : 
+        i % 2 === 1 ? "#ddd" : "white"; 
     return <Square 
         key={i} 
         value={this.props.squares[i]} 
         onClick={() => this.props.onClick(i,this.props.squareNumber)} 
-        background={winner &&
-            winner.includes(i) ? "yellow" : 
-            i % 2 === 1 ? "#ddd" : "white"} 
+        background={background} 
     />;
   }
 
@@ -32,7 +33,9 @@ export class Board extends React.Component {
 
     let background = this.props.winner && 
     this.props.winner.includes(this.props.squareNumber) ?
-    "#ff9" : "#99f";
+    "#ff9" : 
+    this.props.allowed.includes(this.props.squareNumber) ? 
+    "#f97" : "#99f";
 
     return (
     <div className="game-board" 

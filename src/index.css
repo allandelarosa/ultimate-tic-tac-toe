@@ -48,7 +48,7 @@ ol, ul {
 }
 
 .undo, .reset {
-  background: #ff0;
+  background: #f97;
   border: 1px solid #000;
   font-weight: bold;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;

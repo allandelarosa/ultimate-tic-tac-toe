@@ -8,7 +8,8 @@ export class BigBoard extends React.Component {
             squareNumber={i}
             squares={this.props.squares[i]} 
             onClick={(i,j) => this.props.onClick(i,j)} 
-            winner={this.props.winner} />
+            winner={this.props.winner}
+            allowed={this.props.allowed} />
       }
 
       render() {
@@ -25,7 +26,7 @@ export class BigBoard extends React.Component {
             {boards}
           </div>);
         }
-        
+
         return (<div>
           {rows}
         </div>);

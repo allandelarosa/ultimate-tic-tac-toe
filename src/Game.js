@@ -106,9 +106,17 @@ export class Game extends React.Component {
     
     let status;
     if (winner) {
-      if (winner === 'draw')
-        status = 'Draw! No player wins';
-      else
+        // if there is a draw, player with most squares taken wins
+      if (winner === 'draw') {
+          let count = 0;
+        for ( let square of current.bigSquares ) {
+            if ( square === 'X' )
+                count++;
+            else if ( square === 'O' )
+                count--;
+        }
+        status = 'Winner: ' + count < 0 ? 'O' : 'X';
+      } else
         status = 'Winner: ' + current.bigSquares[winner[0]];
     } else {
       status = (this.state.xIsNext ? 'X' : 'O') +
@@ -122,7 +130,8 @@ export class Game extends React.Component {
             bigSquares={current.bigSquares}
             squares={current.squares} 
             onClick={(i,j) => this.handleClick(i,j)} 
-            winner={winner} />
+            winner={winner} 
+            allowed={current.allowed}/>
         </div>
         <div className="game-info">
             <h3 className="status">{status}</h3>
