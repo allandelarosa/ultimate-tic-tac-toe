@@ -5,18 +5,34 @@ import { BigBoard } from "./BigBoard";
 export class Game extends React.Component {
   constructor(props) {
     super(props);
+
     let squares = Array(9);
     for ( let i=0 ; i<squares.length ; i++ ) {
         squares[i] = Array(9).fill(null);
     }
+
     this.state = {
       history: [{
         bigSquares: Array(9).fill(null),
-        squares: squares
+        squares: squares,
+        allowed: [0,1,2,3,4,5,6,7,8]
       }],
       stepNumber: 0,
       xIsNext: true
     };
+  }
+
+  nextSpace(j,bigSquares) {
+    if ( bigSquares[j] === null )
+        return [j];
+
+    let moves = [];
+    for ( let i=0 ; i<9 ; i++ ) {
+        if ( i !== j && bigSquares[i] === null )
+            moves.push( i );
+    }
+
+    return moves;
   }
 
   handleClick(i,j) { // j is big square, i is little square
@@ -30,23 +46,37 @@ export class Game extends React.Component {
     }
     const bigSquares = current.bigSquares.slice();
 
-    if (calculateWinner(bigSquares) || 
+    // check if there is a winner or if someone already
+    // claimed the spot
+    if ( calculateWinner(bigSquares) || 
         calculateWinner(squares[j]) || 
-        squares[j][i])
+        squares[j][i] )
+        return;
+
+    // check if move is actually allowed
+    if ( !current.allowed.includes(j) ) 
         return;
 
     squares[j][i] = this.state.xIsNext ? 'X' : 'O';
 
+    // determine next allowed moves
+    let moves = this.nextSpace(i,bigSquares);
+
+    console.log( current.allowed )
+
     let winner = calculateWinner( squares[j] );
-    if ( winner === 'draw' )
-        bigSquares[j] = winner;
-    else if ( winner )
-        bigSquares[j] = squares[j][winner[0]];
+    if ( winner ) {
+        if ( winner === 'draw' )
+            bigSquares[j] = winner;
+        else
+            bigSquares[j] = squares[j][winner[0]];
+    }
 
     this.setState({
       history: history.concat([{
         bigSquares: bigSquares,
-        squares: squares
+        squares: squares,
+        allowed: moves
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext

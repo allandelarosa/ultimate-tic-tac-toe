@@ -15,14 +15,17 @@ export class BigBoard extends React.Component {
         const rows = Array(3);
         for (let i = 0; i < 3; i++) {
           const boards = Array(3);
+
           for (let j = 0; j < 3; j++) {
             let k = i * 3 + j;
             boards[j] = this.renderBoard(k);
           }
+
           rows[i] = (<div className="big-board-row" key={i}>
             {boards}
           </div>);
         }
+        
         return (<div>
           {rows}
         </div>);
